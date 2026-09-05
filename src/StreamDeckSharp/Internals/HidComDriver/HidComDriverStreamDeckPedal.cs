@@ -23,7 +23,7 @@ public sealed class HidComDriverStreamDeckPedal
     public int ExpectedOutputReportLength => 1024;
 
     /// <inheritdoc/>
-    public int ExpectedInputReportLength => 512;
+    public int ExpectedInputReportLength => 8;
 
     /// <inheritdoc/>
     public int KeyReportOffset => 4;

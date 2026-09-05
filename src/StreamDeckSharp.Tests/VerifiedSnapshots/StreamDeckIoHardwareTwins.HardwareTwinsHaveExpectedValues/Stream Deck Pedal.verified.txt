@@ -76,7 +76,7 @@
     ReportSize: 1024,
     ExpectedFeatureReportLength: 32,
     ExpectedOutputReportLength: 1024,
-    ExpectedInputReportLength: 512,
+    ExpectedInputReportLength: 8,
     KeyReportOffset: 4,
     FirmwareVersionFeatureId: 5,
     SerialNumberFeatureId: 6,
