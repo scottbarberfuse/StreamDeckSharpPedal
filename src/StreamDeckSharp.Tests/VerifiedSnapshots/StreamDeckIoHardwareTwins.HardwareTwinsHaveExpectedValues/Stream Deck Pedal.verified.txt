@@ -1,0 +1,88 @@
+﻿{
+  UsbIds: [
+    {
+      UsbVendorId: 4057,
+      UsbProductId: 134
+    }
+  ],
+  DeviceName: Stream Deck Pedal,
+  Keys: [
+    {
+      X: 0,
+      Y: 0,
+      Width: 72,
+      Height: 72,
+      Location: {
+        X: 0,
+        Y: 0,
+        IsEmpty: true
+      },
+      Size: {
+        Width: 72,
+        Height: 72,
+        IsEmpty: false
+      },
+      IsEmpty: false,
+      Top: 0,
+      Right: 72,
+      Bottom: 72,
+      Left: 0
+    },
+    {
+      X: 102,
+      Y: 0,
+      Width: 72,
+      Height: 72,
+      Location: {
+        X: 102,
+        Y: 0,
+        IsEmpty: false
+      },
+      Size: {
+        Width: 72,
+        Height: 72,
+        IsEmpty: false
+      },
+      IsEmpty: false,
+      Top: 0,
+      Right: 174,
+      Bottom: 72,
+      Left: 102
+    },
+    {
+      X: 204,
+      Y: 0,
+      Width: 72,
+      Height: 72,
+      Location: {
+        X: 204,
+        Y: 0,
+        IsEmpty: false
+      },
+      Size: {
+        Width: 72,
+        Height: 72,
+        IsEmpty: false
+      },
+      IsEmpty: false,
+      Top: 0,
+      Right: 276,
+      Bottom: 72,
+      Left: 204
+    }
+  ],
+  Driver: {
+    HeaderSize: 8,
+    ReportSize: 1024,
+    ExpectedFeatureReportLength: 32,
+    ExpectedOutputReportLength: 1024,
+    ExpectedInputReportLength: 512,
+    KeyReportOffset: 4,
+    FirmwareVersionFeatureId: 5,
+    SerialNumberFeatureId: 6,
+    FirmwareVersionReportSkip: 6,
+    SerialNumberReportSkip: 2,
+    BytesPerSecondLimit: Infinity,
+    KeyImageSize: 0
+  }
+}

@@ -307,6 +307,42 @@ public class StreamDeckIoKeyTests
                 [0, 1],
             ],
         };
+
+        yield return new KeyPressTestCase()
+        {
+            TestName = "StreamDeckPedal_EachKeyOnce",
+            Hardware = Hardware.StreamDeckPedal.Internal(),
+            PackedInputReports =
+            [
+                [0, 1, 2, 3],
+                [0, 1, 2, 3, 4, 1],
+                [0, 1, 2, 3],
+                [0, 1, 2, 3, 5, 1],
+                [0, 1, 2, 3],
+                [0, 1, 2, 3, 6, 1],
+                [0, 1, 2, 3],
+            ],
+        };
+
+        yield return new KeyPressTestCase()
+        {
+            TestName = "StreamDeckPedal_MultipleKeysDown",
+            Hardware = Hardware.StreamDeckPedal.Internal(),
+            PackedInputReports =
+            [
+                [0, 1, 2, 3, 4, 1, 5, 1],
+                [0, 1, 2, 3, 4, 1, 5, 1, 6, 1],
+                [0, 1, 2, 3, 4, 1, 5, 1],
+                [0, 1, 2, 3, 4, 1],
+                [0, 1, 2, 3],
+                [0, 1, 2, 3, 4, 1],
+                [0, 1, 2, 3, 4, 1, 5, 1],
+                [0, 1, 2, 3, 4, 1, 5, 1, 6, 1],
+                [0, 1, 2, 3, 5, 1, 6, 1],
+                [0, 1, 2, 3, 6, 1],
+                [0, 1, 2, 3],
+            ],
+        };
     }
 
     private static IEnumerable<byte[]> Unpack(IEnumerable<byte[]> packedReports, int reportSize)

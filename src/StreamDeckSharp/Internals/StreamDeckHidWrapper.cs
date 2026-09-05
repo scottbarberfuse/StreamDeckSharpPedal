@@ -62,8 +62,8 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
     private readonly Throttle? throttle;
 
     private readonly IStreamDeckHidComDriver hardwareInfo;
+    private readonly byte[] readReportBuffer;
     private HidStream? dStream;
-    private byte[] readReportBuffer = null!;
 
     public StreamDeckHidWrapper(HidDevice device, IStreamDeckHidComDriver hardwareInfo)
     {
@@ -78,17 +78,25 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
         }
 
         devicePath = device.DevicePath;
-        DeviceList.Local.Changed += Local_Changed;
 
-        InitializeDeviceSettings(device);
+        var inputReportLength = device.GetMaxInputReportLength();
+        OutputReportLength = device.GetMaxOutputReportLength();
+        FeatureReportLength = device.GetMaxFeatureReportLength();
+
+        VerifyReportLengths(inputReportLength);
+
+        // sized by the input report length, because input-only devices may not have output reports
+        readReportBuffer = new byte[inputReportLength];
+
+        DeviceList.Local.Changed += Local_Changed;
         OpenConnection(device);
     }
 
     public event EventHandler<ConnectionEventArgs>? ConnectionStateChanged;
     public event EventHandler<ReportReceivedEventArgs>? ReportReceived;
 
-    public int OutputReportLength { get; private set; }
-    public int FeatureReportLength { get; private set; }
+    public int OutputReportLength { get; }
+    public int FeatureReportLength { get; }
 
     public bool IsConnected => dStream != null;
 
@@ -231,12 +239,8 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
         RefreshConnection();
     }
 
-    private void InitializeDeviceSettings(HidDevice device)
+    private void VerifyReportLengths(int inputReportLength)
     {
-        var inputReportLength = device.GetMaxInputReportLength();
-        OutputReportLength = device.GetMaxOutputReportLength();
-        FeatureReportLength = device.GetMaxFeatureReportLength();
-
         Debug.Assert(
             OutputReportLength == hardwareInfo.ExpectedOutputReportLength,
             $"Output report length unexpected. Found: {OutputReportLength}. Expected: {hardwareInfo.ExpectedOutputReportLength}"
@@ -251,8 +255,6 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
             inputReportLength == hardwareInfo.ExpectedInputReportLength,
             $"Input report length unexpected. Found: {inputReportLength}. Expected: {hardwareInfo.ExpectedInputReportLength}"
         );
-
-        readReportBuffer = new byte[OutputReportLength];
     }
 
     private void RefreshConnection()

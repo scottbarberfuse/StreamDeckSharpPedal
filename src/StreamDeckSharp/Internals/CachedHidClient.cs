@@ -27,6 +27,12 @@ internal class CachedHidClient : BasicHidClient
         keyId = HidComDriver.KeyIdMapper.ExtKeyIdToHardwareKeyId(keyId);
 
         var payload = HidComDriver.GeneratePayload(bitmapData);
+
+        if (payload.Length == 0)
+        {
+            return;
+        }
+
         imageQueue.Add(keyId, payload);
     }
 

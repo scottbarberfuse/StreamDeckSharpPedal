@@ -80,6 +80,7 @@ NuGet: [`StreamDeckSharp`](https://www.nuget.org/packages/StreamDeckSharp/)
 | [Stream Deck](https://www.elgato.com/de/gaming/stream-deck) _(MK2)_   | 5 x 3       |
 | [Stream Deck XL](https://www.elgato.com/ww/de/p/stream-deck-xl)       | 8 x 4       |
 | [Stream Deck Mini](https://www.elgato.com/de/gaming/stream-deck-mini) | 3 x 2       |
+| [Stream Deck Pedal](https://www.elgato.com/us/en/p/stream-deck-pedal) | 3 x 1 _(no display)_ |
 
 Keep in mind that Elgato sometimes releases new revisions of their devices with different PIDs (USB product IDs) which might break compatibility. If you have a device like that, please open an issue on GitHub with the new PID.
 
@@ -105,4 +106,4 @@ _\*The glitches you can see are already fixed._
  
 ###### This project is not related to *Elgato Systems GmbH* in any way
 
----
+---

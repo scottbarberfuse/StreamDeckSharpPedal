@@ -102,6 +102,19 @@ public static class Hardware
                 ElgatoUsbId(0x0063),
                 ElgatoUsbId(0x0090)
             );
+
+        // .-------------------.
+        // | Stream Deck Pedal |
+        // '-------------------'
+
+        // no display, key size is nominal
+        StreamDeckPedal =
+            RegisterNewHardwareInternal(
+                "Stream Deck Pedal",
+                new GridKeyLayout(3, 1, 72, 30),
+                new HidComDriverStreamDeckPedal(),
+                ElgatoUsbId(0x0086)
+            );
     }
 
     /// <summary>
@@ -128,6 +141,11 @@ public static class Hardware
     /// Details about the Stream Deck Mini
     /// </summary>
     public static IUsbHidHardware StreamDeckMini { get; }
+
+    /// <summary>
+    /// Details about the Stream Deck Pedal
+    /// </summary>
+    public static IUsbHidHardware StreamDeckPedal { get; }
 
     /// <summary>
     /// This method registers a new (currently unknown to this library) hardware driver.
