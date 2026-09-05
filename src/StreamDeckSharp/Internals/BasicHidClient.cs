@@ -67,11 +67,6 @@ internal class BasicHidClient : IMacroBoard
 
         var payload = HidComDriver.GeneratePayload(bitmapData);
 
-        if (payload.Length == 0)
-        {
-            return;
-        }
-
         var reports = OutputReportSplitter.Split(
             payload,
             Buffer,

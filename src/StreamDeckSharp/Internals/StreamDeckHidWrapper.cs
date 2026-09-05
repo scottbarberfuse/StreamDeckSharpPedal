@@ -78,25 +78,18 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
         }
 
         devicePath = device.DevicePath;
-
-        var inputReportLength = device.GetMaxInputReportLength();
-        OutputReportLength = device.GetMaxOutputReportLength();
-        FeatureReportLength = device.GetMaxFeatureReportLength();
-
-        VerifyReportLengths(inputReportLength);
-
-        // sized by the input report length, because input-only devices may not have output reports
-        readReportBuffer = new byte[inputReportLength];
-
         DeviceList.Local.Changed += Local_Changed;
+
+        InitializeDeviceSettings(device);
+        readReportBuffer = new byte[OutputReportLength];
         OpenConnection(device);
     }
 
     public event EventHandler<ConnectionEventArgs>? ConnectionStateChanged;
     public event EventHandler<ReportReceivedEventArgs>? ReportReceived;
 
-    public int OutputReportLength { get; }
-    public int FeatureReportLength { get; }
+    public int OutputReportLength { get; private set; }
+    public int FeatureReportLength { get; private set; }
 
     public bool IsConnected => dStream != null;
 
@@ -239,8 +232,12 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
         RefreshConnection();
     }
 
-    private void VerifyReportLengths(int inputReportLength)
+    private void InitializeDeviceSettings(HidDevice device)
     {
+        var inputReportLength = device.GetMaxInputReportLength();
+        OutputReportLength = device.GetMaxOutputReportLength();
+        FeatureReportLength = device.GetMaxFeatureReportLength();
+
         Debug.Assert(
             OutputReportLength == hardwareInfo.ExpectedOutputReportLength,
             $"Output report length unexpected. Found: {OutputReportLength}. Expected: {hardwareInfo.ExpectedOutputReportLength}"
