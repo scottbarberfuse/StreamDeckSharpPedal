@@ -1,0 +1,6 @@
+﻿Set all keys to a defined color.
+Clear all keys.
+Set key 0 to red.
+Clear key 0.
+Set key 0 to blue
+Set key 0 to KeyBitmap.Black

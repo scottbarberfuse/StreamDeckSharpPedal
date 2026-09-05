@@ -62,8 +62,8 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
     private readonly Throttle? throttle;
 
     private readonly IStreamDeckHidComDriver hardwareInfo;
+    private readonly byte[] readReportBuffer;
     private HidStream? dStream;
-    private byte[] readReportBuffer = null!;
 
     public StreamDeckHidWrapper(HidDevice device, IStreamDeckHidComDriver hardwareInfo)
     {
@@ -81,6 +81,7 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
         DeviceList.Local.Changed += Local_Changed;
 
         InitializeDeviceSettings(device);
+        readReportBuffer = new byte[OutputReportLength];
         OpenConnection(device);
     }
 
@@ -251,8 +252,6 @@ internal sealed class StreamDeckHidWrapper : IStreamDeckHid
             inputReportLength == hardwareInfo.ExpectedInputReportLength,
             $"Input report length unexpected. Found: {inputReportLength}. Expected: {hardwareInfo.ExpectedInputReportLength}"
         );
-
-        readReportBuffer = new byte[OutputReportLength];
     }
 
     private void RefreshConnection()

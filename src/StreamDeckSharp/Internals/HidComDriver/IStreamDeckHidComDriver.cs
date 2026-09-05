@@ -13,6 +13,10 @@ namespace StreamDeckSharp.Internals.HidComDriver;
 /// low level, some members may not have a good documentation or any at all.
 /// </para>
 /// <para>Implementations must be thread-safe.</para>
+/// <para>
+/// Drivers for devices without a display return an empty array from <see cref="GeneratePayload"/>,
+/// <see cref="GetBrightnessMessage"/> and <see cref="GetLogoMessage"/>. Nothing is sent in that case.
+/// </para>
 /// </remarks>
 public interface IStreamDeckHidComDriver
 {

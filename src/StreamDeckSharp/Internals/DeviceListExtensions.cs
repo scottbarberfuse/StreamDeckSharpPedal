@@ -17,7 +17,7 @@ internal static class DeviceListExtensions
 
         (bool Success, UsbHardwareIdAndDriver Hardware) MatchingHardware(HidDevice d)
         {
-            var hwDetails = d.GetHardwareInformation();
+            var hwDetails = Hardware.GetInternalHardwareInfos(new(d.VendorID, d.ProductID));
 
             if (hwDetails is null)
             {

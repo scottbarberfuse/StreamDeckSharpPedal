@@ -58,7 +58,7 @@ internal class BasicHidClient : IMacroBoard
     public void SetBrightness(byte percent)
     {
         ThrowIfAlreadyDisposed();
-        DeckHid.WriteFeature(HidComDriver.GetBrightnessMessage(percent));
+        WriteFeatureIfNotEmpty(HidComDriver.GetBrightnessMessage(percent));
     }
 
     public virtual void SetKeyBitmap(int keyId, KeyBitmap bitmapData)
@@ -161,6 +161,14 @@ internal class BasicHidClient : IMacroBoard
 
     private void ShowLogoWithoutDisposeVerification()
     {
-        DeckHid.WriteFeature(HidComDriver.GetLogoMessage());
+        WriteFeatureIfNotEmpty(HidComDriver.GetLogoMessage());
+    }
+
+    private void WriteFeatureIfNotEmpty(byte[] featureData)
+    {
+        if (featureData.Length > 0)
+        {
+            DeckHid.WriteFeature(featureData);
+        }
     }
 }
